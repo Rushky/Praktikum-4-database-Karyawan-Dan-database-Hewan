@@ -1,0 +1,304 @@
+
+Nama  : Muhammad Rushky Rizano
+Kelas : TI.17.D1
+Nim   : 311710039
+
+Berikut adalah Sql Code untuk Video Youtube Praktikum 4, Database Karyawan Dan database Hewan
+
+
+#DATABASE KARYAWAN
+1. Buat Database baru dengan nama "Karyawan"
+mysql> CREATE DATABASE Karyawan;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE Karyawan;
+Database changed
+
+2. Buat tabel dengan nama "Pegawai"
+mysql> CREATE TABLE Pegawai
+    -> (idpegawai char(4) primary key,
+    -> nama_depan varchar(10) not null,
+    -> nama_belakang varchar(10) not null,
+    -> email varchar(50) not null,
+    -> telepon char(15) not null,
+    -> tgl_kontrak date not null,
+    -> idjob char(5) not null,
+    -> gaji char(15) not null,
+    -> tunjangan char(15) null);
+Query OK, 0 rows affected (0.25 sec)
+
+3. Masukkan Data Pegawai Ke tabel
+mysql> INSERT INTO Pegawai
+    -> values
+    -> ("E001", "fery", "gustiawan", "fery@yahoo.com", "02117059004", "2005-09-01", "L0001", "2000000", "500000"),
+    -> ("E002", "aris", "ganiardi", "aris@yahoo.com", "081312345678", "2006-09-01", "L0002", "2000000", "200000"),
+    -> ("E003", "faiz", "ahmad", "faiz@yahoo.com", "08134526787", "2006-10-01", "L0003", "1500000", "NULL"),
+    -> ("E004", "emma", "bunton", "emma@yahoo.com", "08134526272", "2006-10-01", "L0004", "1500000", "0"),
+    -> ("E005", "mike", "scoff", "scoff@yahoo.com",  "087987876543", "2007-09-01", "L0005", "1250000", "0"),
+    -> ("E006", "lincoln", "burrous", "mike@yah00.com", "089678766546", "2008-09-01", "L0006", "1750000", "NULL");
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Pegawai;
+
+
+
+SOAL##///////////
+1. Tampilkan pegawai yang gajinya bukan 2.000.000 dan 1.250.000 !
+
+mysql>  select*from pegawai
+    -> where gaji <>"2000000"
+    -> and gaji <>"1250000";
++-----------+------------+---------------+----------------+--------------+-------------+-------+---------+-----------+
+| idpegawai | nama_depan | nama_belakang | email          | telepon      | tgl_kontrak | idjob | gaji    | tunjangan |
++-----------+------------+---------------+----------------+--------------+-------------+-------+---------+-----------+
+| E003      | faiz       | ahmad         | faiz@yahoo.com | 08134526787  | 2006-10-01  | L0003 | 1500000 | NULL      |
+| E004      | emma       | bunton        | emma@yahoo.com | 08134526272  | 2006-10-01  | L0004 | 1500000 | 0         |
+| E006      | lincoln    | burrous       | mike@yah00.com | 089678766546 | 2008-09-01  | L0006 | 1750000 | NULL      |
++-----------+------------+---------------+----------------+--------------+-------------+-------+---------+-----------+
+
+2. Tampilkan pegawai yang tunjangannya NULL! 
+
+mysql> SELECT * FROM PEGAWAI
+    -> WHERE tunjangan ="NULL";
++-----------+------------+---------------+----------------+--------------+-------------+-------+---------+-----------+
+| idpegawai | nama_depan | nama_belakang | email          | telepon      | tgl_kontrak | idjob | gaji    | tunjangan |
++-----------+------------+---------------+----------------+--------------+-------------+-------+---------+-----------+
+| E003      | faiz       | ahmad         | faiz@yahoo.com | 08134526787  | 2006-10-01  | L0003 | 1500000 | NULL      |
+| E006      | lincoln    | burrous       | mike@yah00.com | 089678766546 | 2008-09-01  | L0006 | 1750000 | NULL      |
++-----------+------------+---------------+----------------+--------------+-------------+-------+---------+-----------+
+
+
+3. Tampilkan pegawai yang tunjangannya tidak NULL!
+
+mysql> SELECT * FROM Pegawai
+    -> WHERE tunjangan <>"NULL";
++-----------+------------+---------------+-----------------+--------------+-------------+-------+---------+-----------+
+| idpegawai | nama_depan | nama_belakang | email           | telepon      | tgl_kontrak | idjob | gaji    | tunjangan |
++-----------+------------+---------------+-----------------+--------------+-------------+-------+---------+-----------+
+| E001      | fery       | gustiawan     | fery@yahoo.com  | 02117059004  | 2005-09-01  | L0001 | 2000000 | 500000    |
+| E002      | aris       | ganiardi      | aris@yahoo.com  | 081312345678 | 2006-09-01  | L0002 | 2000000 | 200000    |
+| E004      | emma       | bunton        | emma@yahoo.com  | 08134526272  | 2006-10-01  | L0004 | 1500000 | 0         |
+| E005      | mike       | scoff         | scoff@yahoo.com | 087987876543 | 2007-09-01  | L0005 | 1250000 | 0         |
++-----------+------------+---------------+-----------------+--------------+-------------+-------+---------+-----------+
+
+
+4. Tampilkan/hitung jumlah baris/record tabel pegawai!
+
+mysql> select count(*) from pegawai;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+
+
+5. Tampilkan/hitung jumlah total gaji di tabel pegawai!
+
+mysql> SELECT SUM(gaji) FROM Pegawai;
++-----------+
+| SUM(gaji) |
++-----------+
+|  10000000 |
++-----------+
+
+
+6. Tampilkan/hitung rata-rata gaji pegawai!
+
+mysql> SELECT AVG (GAJI) FROM Pegawai;
++--------------------+
+| AVG (GAJI)         |
++--------------------+
+| 1666666.6666666667 |
++--------------------+
+
+
+7. Tampilkan gaji terkecil!
+
+mysql> SELECT MIN(GAJI) FROM pegawai;
++-----------+
+| MIN(GAJI) |
++-----------+
+| 1250000   |
++-----------+
+
+
+8. Tampilkan gaji terbesar!
+
+mysql> SELECT MAX(GAJI) FROM pegawai;
++-----------+
+| MAX(GAJI) |
++-----------+
+| 2000000   |
++-----------+
+
+
+
+
+#DATABASE HEWAN
+mysql> create database pet;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use pet;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| pet                |
+| latihan01          |
+| mahasiswa          |
+| mysql              |
+| pegawai            |
+| performance_schema |
+| sekolah            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> create table hewan
+    -> (nama varchar(15) not null,
+    -> owner varchar(15) not null,
+    -> species varchar(15) not null,
+    -> sex varchar(15) not null,
+    -> birth varchar(15) not null,
+    -> death varchar(15) not null);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc hewan;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| nama    | varchar(15) | NO   |     | NULL    |       |
+| owner   | varchar(15) | NO   |     | NULL    |       |
+| species | varchar(15) | NO   |     | NULL    |       |
+| sex     | varchar(15) | NO   |     | NULL    |       |
+| birth   | varchar(15) | NO   |     | NULL    |       |
+| death   | varchar(15) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into hewan
+    -> (nama, owner, species, sex, birth, death)
+    -> values
+    -> ("Puffball", "Diane", "Hamster", "f", "1999-03-03", "Null"),
+    -> ("Claws", "Gwen", "Cat", "f", "1994-03-17", "Null"),
+    -> ("Fulffy", "Harold", "Cat", "m", "1993-02-04", "Null"),
+    -> ("Buffy", "Harold", "Dog", "f", "1989-05-13", "Null"),
+    -> ("Fang", "Benny", "Dog", "m", "1990-08-27", "Null");
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from hewan;
++----------+--------+---------+-----+------------+-------+
+| nama     | owner  | species | sex | birth      | death |
++----------+--------+---------+-----+------------+-------+
+| Puffball | Diane  | Hamster | f   | 1999-03-03 | Null  |
+| Claws    | Gwen   | Cat     | f   | 1994-03-17 | Null  |
+| Fulffy   | Harold | Cat     | m   | 1993-02-04 | Null  |
+| Buffy    | Harold | Dog     | f   | 1989-05-13 | Null  |
+| Fang     | Benny  | Dog     | m   | 1990-08-27 | Null  |
++----------+--------+---------+-----+------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into hewan
+    -> values
+    -> ("Browser", "Diane", "Dog", "m", "1989-08-11", "1995-07-29"),
+    -> ("Chirpy", "Gwen", "Bird", "f", "1998-09-11", "Null"),
+    -> ("Whistier", "Gwen", "Bird", "Null", "1997-12-09", "Null"),
+    -> ("Slim", "Benny", "Snake", "m", "1996-04-29", "Null");
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from hewan;
++----------+--------+---------+------+------------+------------+
+| nama     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Puffball | Diane  | Hamster | f    | 1999-03-03 | Null       |
+| Claws    | Gwen   | Cat     | f    | 1994-03-17 | Null       |
+| Fulffy   | Harold | Cat     | m    | 1993-02-04 | Null       |
+| Buffy    | Harold | Dog     | f    | 1989-05-13 | Null       |
+| Fang     | Benny  | Dog     | m    | 1990-08-27 | Null       |
+| Browser  | Diane  | Dog     | m    | 1989-08-11 | 1995-07-29 |
+| Chirpy   | Gwen   | Bird    | f    | 1998-09-11 | Null       |
+| Whistier | Gwen   | Bird    | Null | 1997-12-09 | Null       |
+| Slim     | Benny  | Snake   | m    | 1996-04-29 | Null       |
++----------+--------+---------+------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select Owner, count(species) as jumlah from hewan group by owner;
++--------+--------+
+| Owner  | jumlah |
++--------+--------+
+| Benny  |      2 |
+| Diane  |      2 |
+| Gwen   |      3 |
+| Harold |      2 |
++--------+--------+
+4 rows in set (0.12 sec)
+
+mysql> select species, count(owner) as jumlah from hewan group by species;
++---------+--------+
+| species | jumlah |
++---------+--------+
+| Bird    |      2 |
+| Cat     |      2 |
+| Dog     |      3 |
+| Hamster |      1 |
+| Snake   |      1 |
++---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select sex, count(species) as jumlah from hewan group by sex;
++------+--------+
+| sex  | jumlah |
++------+--------+
+| f    |      4 |
+| m    |      4 |
+| Null |      1 |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select species, sex, count(owner) as jumlah from hewan group by species, sex;
++---------+------+--------+
+| species | sex  | jumlah |
++---------+------+--------+
+| Bird    | f    |      1 |
+| Bird    | Null |      1 |
+| Cat     | f    |      1 |
+| Cat     | m    |      1 |
+| Dog     | f    |      1 |
+| Dog     | m    |      2 |
+| Hamster | f    |      1 |
+| Snake   | m    |      1 |
++---------+------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select species, sex, count(owner) as jumlah from hewan
+    -> where species <> "Hamster"
+    -> and species <> "Bird"
+    -> and species <> "Snake"
+    -> group by species, sex;
++---------+-----+--------+
+| species | sex | jumlah |
++---------+-----+--------+
+| Cat     | f   |      1 |
+| Cat     | m   |      1 |
+| Dog     | f   |      1 |
+| Dog     | m   |      2 |
++---------+-----+--------+
+4 rows in set (0.06 sec)
+
+mysql> select sex, count(species) as jumlah from hewan
+    -> where sex <> "Null"
+    -> group by sex;
++-----+--------+
+| sex | jumlah |
++-----+--------+
+| f   |      4 |
+| m   |      4 |
++-----+--------+
+2 rows in set (0.00 sec)
+
+
